@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SegundaAplicacion"
+             xmlns:utils="clr-namespace:SegundaAplicacion.Utils"
+             xmlns:viewmodel="clr-namespace:SegundaAplicacion.ViewModel"
+             x:Class="SegundaAplicacion.View.ListaMensajes">
+    <ContentPage.BindingContext>
+        <viewmodel:ListaMensajesViewModel></viewmodel:ListaMensajesViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+            <ResourceDictionary>
+                <DataTemplate x:Key="templateMensajeVerde">
+                    <ViewCell>
+                        <StackLayout Spacing="0" >
+                            <Label Text="{Binding Remitente}" 
+                               BackgroundColor="LightGreen" 
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="End" />
+                            <Label Text="{Binding Contenido}" 
+                               BackgroundColor="LightGreen" 
+                               HorizontalTextAlignment="End" />
+                            <Label Text="{Binding FechaHora}" 
+                               BackgroundColor="LightGreen" 
+                               TextColor="Gray" 
+                               FontAttributes="Italic"
+                               HorizontalTextAlignment="End" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+                <DataTemplate x:Key="templateMensajeGris">
+                    <ViewCell>
+                        <StackLayout Spacing="0">
+                            <Label Text="{Binding Remitente}" 
+                               FontAttributes="Bold"
+                               BackgroundColor="LightSlateGray" />
+                            <Label Text="{Binding Contenido}"
+                               BackgroundColor="LightSlateGray" />
+                            <Label Text="{Binding FechaHora}"
+                               FontAttributes="Italic"
+                               TextColor="LightGray"
+                               BackgroundColor="LightSlateGray" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+                <DataTemplate x:Key="templateMensajeNegro">
+                    <ViewCell>
+                        <Label Text="{Binding Contenido}" BackgroundColor="Black" />
+                    </ViewCell>
+                </DataTemplate>
+                <utils:MensajesDataTemplateSelector x:Key="selectorDefinidoEnXaml"
+                                                MensajeMioTemplate="{StaticResource templateMensajeVerde}"
+                                                MensajeDeOtroTemplate="{StaticResource templateMensajeGris}"
+                                                MensajeNadieTemplate="{StaticResource templateMensajeNegro}" />
+            </ResourceDictionary>
+        </ContentPage.Resources>
+
+        <ContentPage.Content>
+            <StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+            <Label Text="{Binding FechaDeHoy}" />
+                <ListView x:Name="lstMensajes" 
+                      ItemTemplate="{StaticResource selectorDefinidoEnXaml}" 
+                      HasUnevenRows="True"
+                      ItemSelected="lstMensajes_ItemSelected"
+                      ItemsSource="{Binding ListaMensajes}" />
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
