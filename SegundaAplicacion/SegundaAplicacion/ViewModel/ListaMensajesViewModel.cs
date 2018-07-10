@@ -45,7 +45,7 @@ namespace SegundaAplicacion.ViewModel
         {
             IsBusy = true;
 
-            await Task.Delay(5000);
+            await Task.Delay(50);
 
             FechaDeHoy = DateTime.Now.ToShortDateString();
 

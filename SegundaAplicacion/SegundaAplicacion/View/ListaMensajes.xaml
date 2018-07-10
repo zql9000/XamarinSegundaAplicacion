@@ -6,7 +6,7 @@
              xmlns:viewmodel="clr-namespace:SegundaAplicacion.ViewModel"
              x:Class="SegundaAplicacion.View.ListaMensajes">
     <ContentPage.BindingContext>
-        <viewmodel:ListaMensajesViewModel></viewmodel:ListaMensajesViewModel>
+        <viewmodel:ListaMensajesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Resources>
             <ResourceDictionary>
@@ -14,33 +14,39 @@
                     <ViewCell>
                         <StackLayout Spacing="0" >
                             <Label Text="{Binding Remitente}" 
-                               BackgroundColor="LightGreen" 
-                               FontAttributes="Bold"
-                               HorizontalTextAlignment="End" />
+                                    BackgroundColor="LightGreen" 
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="End" />
+                            <Button Command="{Binding MostrarInfoCommand}"
+                                    Text="Mostrar contenido" />
                             <Label Text="{Binding Contenido}" 
-                               BackgroundColor="LightGreen" 
-                               HorizontalTextAlignment="End" />
+                                    BackgroundColor="LightGreen" 
+                                    HorizontalTextAlignment="End"
+                                    IsVisible="{Binding DebeMostrarInfo} "/>
                             <Label Text="{Binding FechaHora}" 
-                               BackgroundColor="LightGreen" 
-                               TextColor="Gray" 
-                               FontAttributes="Italic"
-                               HorizontalTextAlignment="End" />
-                        </StackLayout>
+                                    BackgroundColor="LightGreen" 
+                                    TextColor="Gray" 
+                                    FontAttributes="Italic"
+                                    HorizontalTextAlignment="End" />
+                    </StackLayout>
                     </ViewCell>
                 </DataTemplate>
                 <DataTemplate x:Key="templateMensajeGris">
                     <ViewCell>
                         <StackLayout Spacing="0">
                             <Label Text="{Binding Remitente}" 
-                               FontAttributes="Bold"
-                               BackgroundColor="LightSlateGray" />
+                                    FontAttributes="Bold"
+                                    BackgroundColor="LightSlateGray" />
+                            <Button Command="{Binding MostrarInfoCommand}"
+                                    Text="Mostrar contenido" />
                             <Label Text="{Binding Contenido}"
-                               BackgroundColor="LightSlateGray" />
+                                    BackgroundColor="LightSlateGray"
+                                    IsVisible="{Binding DebeMostrarInfo}" />
                             <Label Text="{Binding FechaHora}"
-                               FontAttributes="Italic"
-                               TextColor="LightGray"
-                               BackgroundColor="LightSlateGray" />
-                        </StackLayout>
+                                    FontAttributes="Italic"
+                                    TextColor="LightGray"
+                                    BackgroundColor="LightSlateGray" />
+                    </StackLayout>
                     </ViewCell>
                 </DataTemplate>
                 <DataTemplate x:Key="templateMensajeNegro">
@@ -53,17 +59,17 @@
                                                 MensajeDeOtroTemplate="{StaticResource templateMensajeGris}"
                                                 MensajeNadieTemplate="{StaticResource templateMensajeNegro}" />
             </ResourceDictionary>
-        </ContentPage.Resources>
+    </ContentPage.Resources>
 
-        <ContentPage.Content>
-            <StackLayout>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
-            <Label Text="{Binding FechaDeHoy}" />
-                <ListView x:Name="lstMensajes" 
-                      ItemTemplate="{StaticResource selectorDefinidoEnXaml}" 
-                      HasUnevenRows="True"
-                      ItemSelected="lstMensajes_ItemSelected"
-                      ItemsSource="{Binding ListaMensajes}" />
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+            <Label Text="{Binding FechaDeHoy}" HorizontalTextAlignment="Center" />
+            <ListView x:Name="lstMensajes" 
+                    ItemTemplate="{StaticResource selectorDefinidoEnXaml}" 
+                    HasUnevenRows="True"
+                    ItemSelected="lstMensajes_ItemSelected"
+                    ItemsSource="{Binding ListaMensajes}" />
+    </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
